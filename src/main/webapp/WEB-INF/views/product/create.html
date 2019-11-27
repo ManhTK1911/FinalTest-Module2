@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend style="color: red"><h2>Create Product</h2></legend>
+    <p>
+        <button><a href="/products">Product List</a></button>
+    </p>
+    <th:block th:if="${message}">
+        <p th:text="${message}" style="color: darkorange"></p>
+    </th:block>
+    <form th:action="@{/save-product}" th:object="${product}" method="post">
+        <table>
+            <tr>
+                <td>Code:</td>
+                <td><input type="text" th:field="*{code}"></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td><input type="number" th:field="*{price}"></td>
+            </tr>
+            <tr>
+                <td>Amount:</td>
+                <td><input type="number" th:field="*{amount}"></td>
+            </tr>
+            <tr>
+                <td>Date Created:</td>
+                <td><input type="date" th:field="*{dateCreated}"></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><input type="text" th:field="*{description}"></td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select th:field="*{category}">
+                        <option th:each="s : ${categories}" th:value="${s.id}" th:text="${s.name}" style="color: lime"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Create Product" style="color: blue"></td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+</body>
+</html>

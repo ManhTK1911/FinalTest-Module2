@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+<fieldset style="width: fit-content; height: fit-content">
+    <legend><h1 style="color:orangered">Categories</h1></legend>
+    <button><a href="/create-category">Create Category</a></button>
+    <br><br>
+    <button><a href="/products">Product List</a></button>
+    <br><br>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <th:block th:each="categorie: ${categories}">
+            <tr>
+                <td th:text="${categorie.name}"></td>
+                <td th:text="${categorie.description}"></td>
+            </tr>
+        </th:block>
+    </table>
+</fieldset>
+</body>
+</html>

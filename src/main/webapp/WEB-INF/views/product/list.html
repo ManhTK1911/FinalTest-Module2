@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+<style>
+    option {
+        text-align: center;
+        height: 25px;
+        width: 110px;
+    }
+
+    button {
+        text-align: center;
+        height: 25px;
+        width: 110px;
+    }
+
+    table {
+        margin: auto;
+        border: 2px solid black;
+        margin-left: 30px;
+    }
+
+    tr {
+        border: 2px solid black;
+        margin: auto;
+        padding: 15px;
+    }
+
+    td {
+        margin: auto;
+        border: 2px solid black;
+        text-align: center;
+        padding: 15px;
+        font-weight: bolder;
+    }
+
+    th {
+        color: chocolate;
+    }
+
+    form {
+        margin-top: 15px;
+    }
+
+    #so {
+        margin-left: 38px
+    }
+</style>
+<fieldset style="height: fit-content; width: fit-content">
+    <legend style="color: red"><h1>Product List</h1></legend>
+    <p>
+        <button><a href="/create-product">Create Product</a></button>
+    </p>
+    <p>
+        <button><a href="/categories">Category List</a></button>
+    </p>
+
+    <form>
+        Search by name:
+        <input name="searchProduct" type="text"/>
+        <input type="submit" value="Search"/>
+    </form>
+
+    <table border="1">
+        <tr style="color: deeppink">
+            <td>Code</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Amount</td>
+            <td>Date Created</td>
+            <td>Description</td>
+            <td>Category</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+        <th:block th:each="product: ${products}">
+            <tr>
+                <td th:text="${product.code}"></td>
+                <td><a th:href="@{/detail-product/__${product.id}__ }" th:text="${product.name}"></a></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.amount}"></td>
+                <td th:text="${product.dateCreated}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.getCategory().getName()}"></td>
+                <td><a th:href="@{/edit-product/__${product.id}__ }">Edit</a></td>
+                <td><a th:href="@{/delete-product/__${product.id}__ }">Delete</a></td>
+            </tr>
+        </th:block>
+        <div>
+            <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+            <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+            <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+        </div>
+    </table>
+</fieldset>
+</body>
+</html>
